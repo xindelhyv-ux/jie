@@ -1,33 +1,45 @@
-name: Deploy static content to Pages
-
-on:
-  push:
-    branches: ["main"]
-  workflow_dispatch:
-
-permissions:
-  pages: write
-  id-token: write
-
-concurrency:
-  group: "pages"
-  cancel-in-progress: false
-
-jobs:
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: '.'
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的全能生活助手</title>
+    <style>
+        /* 整体样式：电脑、手机都能好看 */
+        body {
+            font-family: 'Microsoft YaHei', 'PingFang SC', sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f0f2f5;
+            line-height: 1.6;
+        }
+        /* 头部标题 */
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        .header h1 {
+            color: #2c3e50;
+            margin: 0;
+            font-size: 28px;
+        }
+        .header p {
+            color: #7f8c8d;
+            margin-top: 8px;
+        }
+        /* 功能卡片 */
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            transition: transform 0.2s;
+        }
+        .card:hover {
+            transf
