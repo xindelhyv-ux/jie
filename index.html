@@ -42,4 +42,64 @@
             transition: transform 0.2s;
         }
         .card:hover {
-            transf
+            transform: translateY(-3px);
+        }
+        /* 标题样式 */
+        h2 {
+            color: #2c3e50;
+            border-left: 4px solid #3498db;
+            padding-left: 12px;
+            margin-top: 0;
+            font-size: 20px;
+        }
+        /* 描述文字 */
+        .card p {
+            color: #7f8c8d;
+            margin: 10px 0 20px 0;
+        }
+        /* 按钮样式 */
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background: #3498db;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+        .btn:hover {
+            background: #2980b9;
+            color: white;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>我的全能生活助手</h1>
+        <p>欢迎使用，为你准备的生活与工作工具集</p >
+    </div>
+
+    <!-- 食谱神器 -->
+    <div class="card">
+        <h2>🍳 食谱神器</h2>
+        <p>记录和分享你的烹饪技巧，格式自动整理</p >
+        打开食谱库
+    </div>
+
+    <!-- 驾照题库助手 -->
+    <div class="card">
+        <h2>🚗 驾照题库助手</h2>
+        <p>整理驾校教学资料，快速查询与分类</p >
+        
+    </div>
+
+    <!-- AI 文案生成 -->
+    <div class="card">
+        <h2>✍️ AI 文案生成</h2>
+        <p>一键生成社交媒体文案，助力副业运营</p >
+        
+    </div>
+</body>
+</html>
