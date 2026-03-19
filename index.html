@@ -1,108 +1,33 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>我的全能生活助手</title>
-    <style>
-        /* 整体样式：电脑、手机都能好看 */
-        body {
-            font-family: 'Microsoft YaHei', 'PingFang SC', sans-serif;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #f0f2f5;
-            line-height: 1.6;
-        }
-        /* 头部标题 */
-        .header {
-            text-align: center;
-            margin-bottom: 30px;
-            background: white;
-            padding: 25px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-        }
-        .header h1 {
-            color: #2c3e50;
-            margin: 0;
-            font-size: 28px;
-        }
-        .header p {
-            color: #7f8c8d;
-            margin-top: 8px;
-        }
-        /* 功能卡片 */
-        .card {
-            background: white;
-            border-radius: 12px;
-            padding: 25px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            transition: transform 0.2s;
-        }
-        .card:hover {
-            transform: translateY(-3px);
-        }
-        /* 标题样式 */
-        h2 {
-            color: #2c3e50;
-            border-left: 4px solid #3498db;
-            padding-left: 12px;
-            margin-top: 0;
-            font-size: 20px;
-        }
-        /* 描述文字 */
-        .card p {
-            color: #7f8c8d;
-            margin: 10px 0 20px 0;
-        }
-        /* 按钮样式 */
-        .btn {
-            display: inline-block;
-            padding: 12px 24px;
-            background: #3498db;
-            color: white;
-            text-decoration: none;
-            border-radius: 8px;
-            font-weight: bold;
-            transition: background 0.3s;
-        }
-        .btn:hover {
-            background: #2980b9;
-            color: white;
-            text-decoration: none;
-        }
-    </style>
-</head>
-<body>
-    <div class="header">
-        <h1>我的全能生活助手</h1>
-        <p>欢迎使用，为你准备的生活与工作工具集</p >
-    </div>
+name: Deploy static content to Pages
 
-    <!-- 食谱神器 -->
-    <div class="card">
-        <h2>🍳 食谱神器</h2>
-        <p>记录和分享你的烹饪技巧，格式自动整理</p >
-        <!-- 点击按钮跳转到下厨房，新窗口打开 -->
-        打开食谱库
-    </div>
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
 
-    <!-- 驾照题库助手 -->
-    <div class="card">
-        <h2>🚗 驾照题库助手</h2>
-        <p>整理驾校教学资料，快速查询与分类</p >
-        <!-- 点击按钮跳转到驾考网，新窗口打开 -->
-        
-    </div>
+permissions:
+  pages: write
+  id-token: write
 
-    <!-- AI 文案生成 -->
-    <div class="card">
-        <h2>✍️ AI 文案生成</h2>
-        <p>一键生成社交媒体文案，助力副业运营</p >
-        <!-- 点击按钮跳转到豆包AI，新窗口打开 -->
-        
-    </div>
-</body>
-</html>
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: '.'
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
